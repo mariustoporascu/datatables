@@ -1,13 +1,13 @@
-import Context          from './Context'
-import TriggerHandler   from './handlers/TriggerHandler'
-import SortHandler      from './handlers/SortHandler'
-import SelectHandler    from './handlers/SelectHandler'
-import PageHandler      from './handlers/PageHandler'
-import SearchHandler    from './handlers/SearchHandler'
-import FilterHandler    from './handlers/FilterHandler'
+import Context from './Context'
+import FilterHandler from './handlers/FilterHandler'
+import PageHandler from './handlers/PageHandler'
+import SearchHandler from './handlers/SearchHandler'
+import SelectHandler from './handlers/SelectHandler'
+import SortHandler from './handlers/SortHandler'
+import TriggerHandler from './handlers/TriggerHandler'
 
-import type { Writable, Readable } from 'svelte/store'
-import type { Internationalization, Row, State, Sort } from '$lib/remote'
+import type { Internationalization, Row, Sort, State } from '$lib/remote'
+import { type Readable, type Writable } from 'svelte/store'
 
 export type Params = {
     rowsPerPage     ?: number,
@@ -43,7 +43,10 @@ export default class DataHandler<T extends Row = any>
     {
         this.triggerHandler.set(callback)
     }
-
+    public getFilterHandler(): FilterHandler<T>
+    {
+        return this.filterHandler
+    }
     public invalidate()
     {
         this.triggerHandler.invalidate()
